@@ -1,4 +1,4 @@
-# Quick Start
+# Demo
 
 By using SAP UI5 CDN
 
