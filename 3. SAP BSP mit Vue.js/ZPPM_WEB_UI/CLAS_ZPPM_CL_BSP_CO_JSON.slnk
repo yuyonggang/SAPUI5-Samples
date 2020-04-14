@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZPPM_CL_BSP_CO_JSON" VERSION="1" LANGU="E" DESCRIPT="Controller Class for ZPPM_WEB_UI" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " ZSAPLINK_PLUGIN_MAJOR_VERSION="0 " ZSAPLINK_PLUGIN_MINOR_VERSION="1 " ZSAPLINK_PLUGIN_BUILD_VERSION="0 " ZSAPLINK_PLUGIN_INFO1="ZSAPLINK_CLASS is part of the main ZSAPLINK project --&gt; This plugin found there instead of ZSAPLINK_PLUGINS projects" ZSAPLINK_PLUGIN_INFO2="SAPLINK homepage: https://www.assembla.com/spaces/saplink/wiki" ZSAPLINK_PLUGIN_INFO3="Download from https://www.assembla.com/code/saplink/subversion/nodes" ZSAPLINK_PLUGIN_INFO4="and navigate to:  trunk -&gt; core -&gt; ZSAPLINK -&gt; CLAS -&gt; ZSAPLINK_CLASS.slnk" REFCLSNAME="CL_BSP_CONTROLLER2">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <attribute CLSNAME="ZPPM_CL_BSP_CO_JSON" CMPNAME="G_JSON" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZPPM_CL_BSP_CO_JSON" REFCLSNAME="CL_BSP_CONTROLLER2" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZPPM_CL_BSP_CO_JSON" REFCLSNAME="CL_BSP_CONTROLLER2" VERSION="1" MTDNAME="DO_INIT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZPPM_CL_BSP_CO_JSON" REFCLSNAME="CL_BSP_CONTROLLER2" VERSION="1" MTDNAME="DO_REQUEST" EXPOSURE="0"/>
+ </inheritance>
+ <method CLSNAME="CL_BSP_CONTROLLER2" CMPNAME="DO_INIT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD DO_INIT.
+    CALL METHOD SUPER-&gt;DO_INIT.
+  ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="CL_BSP_CONTROLLER2" CMPNAME="DO_REQUEST" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD DO_REQUEST.
+    CALL METHOD SUPER-&gt;DO_REQUEST.
+
+    &quot;Please implement your controller logic here.
+    &quot;I suggest to pass params to backend and just retrieve result as Json
+    GET_DATA( ).
+
+    VIEW_PAGE( ).
+  ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZPPM_CL_BSP_CO_JSON" CMPNAME="GET_DATA" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD GET_DATA.
+    &quot;https://help.sap.com/doc/abapdocu_740_index_htm/7.40/en-US/index.htm?file=abenabap_json_abexas.htm
+    &quot;Creates a dummy table and fills global variables that contains 3 json formats of data
+    &quot;Instead you call a different object and retrieve data.
+
+    &quot;Structure for dummy data
+    TYPES: BEGIN OF STRUCT,
+             DAY  TYPE STRING,
+             DATE TYPE D,
+           END OF STRUCT.
+
+    &quot;Dummy data
+    DATA ITAB TYPE STANDARD TABLE OF STRUCT.
+    ITAB = VALUE #( ( DAY = &apos;Yesterday&apos; DATE = SY-DATLO - 1 )
+                    ( DAY = &apos;Today&apos;     DATE = SY-DATLO )
+                    ( DAY = &apos;Tomorrow&apos;  DATE = SY-DATLO + 1 )
+                    ).
+
+    &quot;Transformation to JSON
+    DATA(WRITER) = CL_SXML_STRING_WRITER=&gt;CREATE( TYPE = IF_SXML=&gt;CO_XT_JSON ).
+    CALL TRANSFORMATION ID SOURCE ITAB = ITAB RESULT XML WRITER.
+    DATA(JSON) = WRITER-&gt;GET_OUTPUT( ).
+
+    CLEAR G_JSON.
+    CALL FUNCTION &apos;ECATT_CONV_XSTRING_TO_STRING&apos;
+      EXPORTING
+        IM_XSTRING = JSON
+      IMPORTING
+        EX_STRING  = G_JSON.
+
+  ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZPPM_CL_BSP_CO_JSON" CMPNAME="VIEW_PAGE" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD VIEW_PAGE.
+    &quot;View Page
+    DATA: LV_VIEW TYPE REF TO IF_BSP_PAGE.
+    LV_VIEW = CREATE_VIEW( VIEW_NAME = &apos;ZPPM_BSP_CO_JSON_VIEW&apos; ).
+
+    &quot;We will pass json data
+    LV_VIEW-&gt;SET_ATTRIBUTE( NAME  = &apos;G_JSON&apos; VALUE = G_JSON ).
+    CALL_VIEW( LV_VIEW ).
+  ENDMETHOD.</source>
+ </method>
+</CLAS>

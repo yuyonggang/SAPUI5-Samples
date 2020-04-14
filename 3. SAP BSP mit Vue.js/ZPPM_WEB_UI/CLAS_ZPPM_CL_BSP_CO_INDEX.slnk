@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZPPM_CL_BSP_CO_INDEX" VERSION="1" LANGU="E" DESCRIPT="Controller Class for ZPPM_WEB_UI" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " ZSAPLINK_PLUGIN_MAJOR_VERSION="0 " ZSAPLINK_PLUGIN_MINOR_VERSION="1 " ZSAPLINK_PLUGIN_BUILD_VERSION="0 " ZSAPLINK_PLUGIN_INFO1="ZSAPLINK_CLASS is part of the main ZSAPLINK project --&gt; This plugin found there instead of ZSAPLINK_PLUGINS projects" ZSAPLINK_PLUGIN_INFO2="SAPLINK homepage: https://www.assembla.com/spaces/saplink/wiki" ZSAPLINK_PLUGIN_INFO3="Download from https://www.assembla.com/code/saplink/subversion/nodes" ZSAPLINK_PLUGIN_INFO4="and navigate to:  trunk -&gt; core -&gt; ZSAPLINK -&gt; CLAS -&gt; ZSAPLINK_CLASS.slnk" REFCLSNAME="CL_BSP_CONTROLLER2">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <inheritance CLSNAME="ZPPM_CL_BSP_CO_INDEX" REFCLSNAME="CL_BSP_CONTROLLER2" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZPPM_CL_BSP_CO_INDEX" REFCLSNAME="CL_BSP_CONTROLLER2" VERSION="1" MTDNAME="DO_INIT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZPPM_CL_BSP_CO_INDEX" REFCLSNAME="CL_BSP_CONTROLLER2" VERSION="1" MTDNAME="DO_REQUEST" EXPOSURE="0"/>
+ </inheritance>
+ <method CLSNAME="CL_BSP_CONTROLLER2" CMPNAME="DO_INIT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD DO_INIT.
+    CALL METHOD SUPER-&gt;DO_INIT.
+  ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="CL_BSP_CONTROLLER2" CMPNAME="DO_REQUEST" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD DO_REQUEST.
+    CALL METHOD SUPER-&gt;DO_REQUEST.
+
+    VIEW_PAGE( ).
+  ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZPPM_CL_BSP_CO_INDEX" CMPNAME="VIEW_PAGE" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD VIEW_PAGE.
+    &quot;View Page
+    DATA: LV_VIEW TYPE REF TO IF_BSP_PAGE.
+    LV_VIEW = CREATE_VIEW( VIEW_NAME = &apos;index.htm&apos; ).
+
+    CALL_VIEW( LV_VIEW ).
+  ENDMETHOD.</source>
+ </method>
+</CLAS>

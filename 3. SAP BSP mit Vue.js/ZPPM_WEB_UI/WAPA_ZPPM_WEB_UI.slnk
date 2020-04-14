@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WAPA APPLNAME="ZPPM_WEB_UI" APPLEXT="ZPPM_WEB_UI" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="Web UI Mit Vue">
+ <page APPLNAME="ZPPM_WEB_UI" PAGEKEY="INDEX.DO" PAGENAME="index.do" PAGETYPE="C" STATE="1" BROWSER_CACHE="0 " SERVER_CACHE="0 " IS_START_PAGE="X" LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="Index View contoller"/>
+ <page APPLNAME="ZPPM_WEB_UI" PAGEKEY="INDEX.HTM" PAGENAME="index.htm" PAGETYPE="V" CONTROLLERURL="ZPPM_CL_BSP_CO_INDEX" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="Index Page">
+  <layout>&lt;HTML&gt;
+&lt;HEAD&gt;
+  &lt;!-- production version, optimized for size and speed --&gt;
+  &lt;script src=&quot;Scripts/vue.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;Scripts/axios.min.js&quot;&gt;&lt;/script&gt;
+&lt;/HEAD&gt;
+
+&lt;body&gt;
+
+  &lt;div id=&quot;app2&quot;&gt;
+    &lt;div v-if=&quot;loading&quot;&gt;
+      loading...
+    &lt;/div&gt;
+    &lt;div v-else&gt;
+      &lt;ul&gt;
+        &lt;li v-for=&quot;item in items.ITAB&quot;&gt;
+          &lt;h1&gt;
+            {{item.DAY}}
+          &lt;/h1&gt;
+          &lt;p&gt;
+            {{item.DATE}}
+          &lt;/p&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+
+  &lt;h1&gt;Test Page&lt;/h1&gt;
+  &lt;p&gt;&lt;a href=&quot;ZPPM_BSP_CO_JSON.do&quot;&gt;TEST K#sa&lt;/a&gt;&lt;/p&gt;
+
+  &lt;script&gt;
+
+    const URL = &apos;ZPPM_BSP_CO_JSON.do&apos;;
+    var app2 = new Vue({
+      el: &apos;#app2&apos;,
+      data() {
+        return {
+          loading: true,
+      posts: [] // add posts here so reactivity is working, also undefined would be OK
+    }
+  },
+  created() {
+    //this.loading = true --&gt; not needed already set in data
+    //op:03 represents Json format, see base class constants: ZBSP_CL_BASE_REST_MODEL
+    axios.post(URL, {
+      params: {
+        op: &apos;03&apos;
+      }}).then((response) =&gt; {
+      // console.log(response.data, this)
+      this.items = response.data
+      this.loading = false
+    })
+    }
+  })
+&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/HTML&gt;</layout>
+ </page>
+ <page APPLNAME="ZPPM_WEB_UI" PAGEKEY="ZPPM_BSP_CO_JSON.DO" PAGENAME="ZPPM_BSP_CO_JSON.do" PAGETYPE="C" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="Json Contoller"/>
+ <page APPLNAME="ZPPM_WEB_UI" PAGEKEY="ZPPM_BSP_CO_JSON_VIEW" PAGENAME="ZPPM_BSP_CO_JSON_VIEW" PAGETYPE="V" CONTROLLERURL="ZPPM_CL_BSP_CO_JSON" MIMETYPE="application/octet-stream" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="Json Output Page">
+  <layout>&lt;%@page language=&quot;ABAP&quot; %&gt;
+&lt;%= G_JSON %&gt;
+
+&lt;%--&lt;htmlb:content design=&quot;design2003&quot;&gt;
+  &lt;htmlb:page title = &quot;Json View &quot;&gt;
+    &lt;htmlb:form&gt;
+
+      &lt;htmlb:textView     text          = &quot;Hello World!&quot;
+                          design        = &quot;EMPHASIZED&quot; /&gt;
+
+      &lt;htmlb:button       text          = &quot;Press Me&quot;
+                          onClick       = &quot;myClickHandler&quot; /&gt;
+
+    &lt;/htmlb:form&gt;
+  &lt;/htmlb:page&gt;
+&lt;/htmlb:content&gt;--%&gt;</layout>
+  <parameter APPLNAME="ZPPM_WEB_UI" PAGEKEY="ZPPM_BSP_CO_JSON_VIEW" COMPNAME="G_JSON" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="STRING" ALIASNAME="G_JSON"/>
+ </page>
+</WAPA>
